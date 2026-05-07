@@ -1,3 +1,4 @@
+"use client"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -5,21 +6,32 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-function createData(
-  name: string,
-  state: string
-) {
-  return { name, state };
-}
-
-const rows = [
-  createData('Study german', 'finished'),
-  createData('Read Jurassic Park', 'started'),
-  createData('Learn full-stack', 'in progress'),
-];
+import { useState, useEffect } from "react";
 
 export default function SimpleTable() {
+
+  const [items, setItems] = useState([{name:"",status:""}]);
+  const [dataIsLoaded, setDataIsLoaded] = useState(false);
+
+  function createData(
+    name: string,
+    state: string
+  ) {
+    return { name, state };
+  }
+
+  useEffect(() => {
+    console.log("hey");
+    fetch("http://localhost:8080/tasks")
+      .then((res) => res.json())
+      .then((json) => {
+        setItems(json._embedded.taskList);
+        //setDataIsLoaded(true);
+        const taskList = json._embedded.taskList;
+        console.log(json._embedded.taskList);
+    });
+  },[]);
+
   return (        
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -30,7 +42,7 @@ export default function SimpleTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {items.map((row) => (
                   <TableRow
                     key={row.name}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -38,7 +50,7 @@ export default function SimpleTable() {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="left">{row.state}</TableCell>
+                    <TableCell align="left">{row.status}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
