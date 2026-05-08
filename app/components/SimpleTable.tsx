@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
+import api from '../../API/getTasks';
 
 export default function SimpleTable() {
 
@@ -29,7 +30,9 @@ export default function SimpleTable() {
         //setDataIsLoaded(true);
         const taskList = json._embedded.taskList;
         console.log(json._embedded.taskList);
+        console.log("process",`${process.env.NEXT_PUBLIC_WEBSERVICE_URL}`);
     });
+    console.log(api());
   },[]);
 
   return (        
