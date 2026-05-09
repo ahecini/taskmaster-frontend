@@ -7,32 +7,34 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
-import api from '../../API/getTasks';
+import getTasks from '../../API/getTasks';
 
 export default function SimpleTable() {
 
   const [items, setItems] = useState([{name:"",status:""}]);
-  const [dataIsLoaded, setDataIsLoaded] = useState(false);
 
   function createData(
     name: string,
     state: string
   ) {
     return { name, state };
-  }
+  };
+  
+  const initiateTaskTable = async () => {
+    try{
+      var json = {_embedded:{taskList:[]}};
+      json = await getTasks();
+      setItems(json._embedded.taskList);
+    }catch(error){
+      if(typeof error=== "string"){
+        console.error(error);
+      }
+    }
+  };
 
   useEffect(() => {
     console.log("hey");
-    fetch("http://localhost:8080/tasks")
-      .then((res) => res.json())
-      .then((json) => {
-        setItems(json._embedded.taskList);
-        //setDataIsLoaded(true);
-        const taskList = json._embedded.taskList;
-        console.log(json._embedded.taskList);
-        console.log("process",`${process.env.NEXT_PUBLIC_WEBSERVICE_URL}`);
-    });
-    console.log(api());
+    initiateTaskTable();
   },[]);
 
   return (        

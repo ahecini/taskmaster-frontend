@@ -1,4 +1,4 @@
-export default async function api<T>(): Promise<T> {
+export default async function getTasks<T>(): Promise<T> {
     const response = await fetch(`${process.env.NEXT_PUBLIC_WEBSERVICE_URL}`);
 
     if (!response.ok) {
