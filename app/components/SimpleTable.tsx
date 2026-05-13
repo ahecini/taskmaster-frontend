@@ -7,7 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
-import getTasks from '../../API/getTasks';
+import getTasks from '../API/getTasks';
+import createTask from '../API/createTask';
 
 export default function SimpleTable() {
 
