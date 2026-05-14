@@ -13,7 +13,7 @@ export default function Home({ searchParams }: SearchParamProps) {
   //const show = searchParams?.show;
   const [show, setShow] = useState(false);
 
-  const setFalse:MouseEventHandler<HTMLAnchorElement> = () => {
+  const setFalse = () => {
     setShow(false);
   };
 
@@ -61,7 +61,7 @@ export default function Home({ searchParams }: SearchParamProps) {
         <div className="mt-5">
           <SimpleTable></SimpleTable>
         </div>
-        {show && <Modal/>}
+        {show && <Modal closeFunction={setFalse}/>}
       </main>
     </div>
   );

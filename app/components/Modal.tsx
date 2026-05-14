@@ -1,8 +1,10 @@
 // Server-side Modal
-import Link from "next/link";
-import { MouseEventHandler } from "react";
 
-export default function Modal() {
+interface closeFunctionProps{
+    closeFunction: ()=>void
+}
+
+export default function Modal({ closeFunction = () => {} }: closeFunctionProps) {
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
@@ -17,6 +19,7 @@ export default function Modal() {
             {/* Navigates back to the base URL - closing the modal */}
             <a
               className="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+              onClick={closeFunction}
             >
               Close
             </a>
