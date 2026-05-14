@@ -8,11 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
 import getTasks from '../API/getTasks';
-import createTask from '../API/createTask';
 
 export default function SimpleTable() {
 
   const [items, setItems] = useState([{name:"",status:""}]);
+  const [refresh, setRefresh] = useState(false);
 
   function createData(
     name: string,
@@ -36,7 +36,7 @@ export default function SimpleTable() {
   useEffect(() => {
     console.log("hey");
     initiateTaskTable();
-  },[]);
+  },[refresh]);
 
   return (        
         <TableContainer component={Paper}>

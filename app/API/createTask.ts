@@ -9,14 +9,14 @@ export default async function createTask(task: Object): Promise<void> {
   // to tell the server that we expect JSON in response
   headers.set('Accept', 'application/json')
 
-  const request: RequestInfo = new Request('/tasks', {
+  const request: RequestInfo = new Request(`${process.env.NEXT_PUBLIC_WEBSERVICE_URL}`, {
     // We need to set the `method` to `POST` and assign the headers
     method: 'POST',
     headers: headers,
     // Convert the task object to JSON and pass it as the body
     body: JSON.stringify(task)
   })
-
+  console.log(JSON.stringify(task));
   // Send the request and print the response
   return fetch(request)
     .then(res => {
