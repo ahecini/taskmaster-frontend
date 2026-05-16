@@ -1,21 +1,33 @@
 "use client"
+import { useState, useEffect } from "react";
+import getTasks from '../API/getTasks';
+
+import * as React from 'react';
+import { alpha } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import { useState, useEffect } from "react";
-import getTasks from '../API/getTasks';
 import Checkbox from '@mui/material/Checkbox';
-
-const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { visuallyHidden } from '@mui/utils';
 
 export default function SimpleTable() {
 
-  const [items, setItems] = useState([{id:"",name:"",status:""}]);
-  const [selectedId, setSelectedId] = useState(0);
+  const [items, setItems] = useState([{name:"",status:""}]);
   
   const initiateTaskTable = async () => {
     try{
@@ -34,16 +46,11 @@ export default function SimpleTable() {
     initiateTaskTable();
   },[]);
 
-  const handleOnClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedId(!event.target.checked? 0 : Number(event.target.name));
-  }
-
   return (        
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
                   <TableCell><b>Task name</b></TableCell>
                   <TableCell align="left"><b>state</b></TableCell>
                 </TableRow>
@@ -54,7 +61,6 @@ export default function SimpleTable() {
                     key={row.name}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell><Checkbox {...label} onChange={handleOnClick} name={row.id} checked={selectedId===Number(row.id)}/></TableCell>
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
