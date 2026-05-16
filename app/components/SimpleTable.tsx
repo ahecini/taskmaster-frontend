@@ -12,14 +12,6 @@ import getTasks from '../API/getTasks';
 export default function SimpleTable() {
 
   const [items, setItems] = useState([{name:"",status:""}]);
-  const [refresh, setRefresh] = useState(false);
-
-  function createData(
-    name: string,
-    state: string
-  ) {
-    return { name, state };
-  };
   
   const initiateTaskTable = async () => {
     try{
@@ -36,7 +28,7 @@ export default function SimpleTable() {
   useEffect(() => {
     console.log("hey");
     initiateTaskTable();
-  },[refresh]);
+  },[]);
 
   return (        
         <TableContainer component={Paper}>

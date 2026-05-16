@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import createTask from '../API/createTask';
 
 interface closeFunctionProps{
@@ -13,10 +13,6 @@ export default function Modal({ closeFunction = () => {} }: closeFunctionProps) 
   const onChange = (e: React.ChangeEvent<HTMLInputElement >) => {
     setTaskName(e.currentTarget.value);
   };
-
-  const addFunction = () => {
-    console.log(taskName);
-  }
 
   const addTask = async () => {
     try{
@@ -47,6 +43,7 @@ export default function Modal({ closeFunction = () => {} }: closeFunctionProps) 
             <a
               className="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 mr-5"
               onClick={addTask}
+              href='/'
             >
               Add
             </a>
