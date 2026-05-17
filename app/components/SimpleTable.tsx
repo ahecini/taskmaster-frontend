@@ -10,12 +10,16 @@ import { useState, useEffect } from "react";
 import getTasks from '../API/getTasks';
 import Checkbox from '@mui/material/Checkbox';
 
+interface SimpleTableProps{
+    setSelectedId: (f: any)=>void,
+    selectedId: Number
+}
+
 const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
 
-export default function SimpleTable() {
+export default function SimpleTable({ setSelectedId = f => {}, selectedId = 0 }: SimpleTableProps) {
 
   const [items, setItems] = useState([{id:"",name:"",status:""}]);
-  const [selectedId, setSelectedId] = useState(0);
   
   const initiateTaskTable = async () => {
     try{
@@ -36,7 +40,7 @@ export default function SimpleTable() {
 
   const handleOnClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedId(!event.target.checked? 0 : Number(event.target.name));
-  }
+  };
 
   return (        
         <TableContainer component={Paper}>

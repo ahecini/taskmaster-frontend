@@ -12,6 +12,7 @@ type SearchParamProps = {
 export default function Home({ searchParams }: SearchParamProps) {
   //const show = searchParams?.show;
   const [show, setShow] = useState(false);
+  const [selectedId, setSelectedId] = useState(0);
 
   const setFalse = () => {
     setShow(false);
@@ -59,7 +60,7 @@ export default function Home({ searchParams }: SearchParamProps) {
           </a>
         </div>
         <div className="mt-5">
-          <SimpleTable></SimpleTable>
+          <SimpleTable setSelectedId={setSelectedId} selectedId={selectedId}></SimpleTable>
         </div>
         {show && <Modal closeFunction={setFalse}/>}
       </main>
