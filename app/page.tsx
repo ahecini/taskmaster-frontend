@@ -4,6 +4,7 @@ import SimpleTable from './components/SimpleTable';
 import Modal from "./components/Modal";
 import { useState, useEffect } from "react";
 import { MouseEventHandler } from "react";
+import deleteTask from './API/deleteTask';
 
 type SearchParamProps = {
   searchParams: Record<string, string> | null | undefined;
@@ -16,6 +17,19 @@ export default function Home({ searchParams }: SearchParamProps) {
 
   const setFalse = () => {
     setShow(false);
+  };
+
+  const removeTask = async () => {
+    try{
+      console.log(Number(selectedId));
+      const response = await deleteTask(String(selectedId));
+      console.log("deleted!")
+      console.log(response)
+    }catch(error){
+      if(typeof error=== "string"){
+        console.error(error);
+      }
+    }
   };
 
   return (
@@ -52,9 +66,8 @@ export default function Home({ searchParams }: SearchParamProps) {
           </a>
           <a
             className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            
+            onClick={removeTask}
           >
             Delete
           </a>
